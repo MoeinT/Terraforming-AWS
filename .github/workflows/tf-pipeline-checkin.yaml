@@ -28,10 +28,10 @@ jobs:
         terraform_version: 1.1.9
     - name: Initializing the Dev backend
       id: init
-      env:
-        aws_access_key: ${{ secrets.aws_access_key }}
-        aws_secret_key: ${{ secrets.aws_secret_key }}
-      run: terraform init -backend-config="access_key=aws_access_key" -backend-config="secret_key=aws_secret_key"
+      # env:
+        TF_VAR_aws_access_key: ${{ secrets.aws_access_key }}
+        TF_VAR_aws_secret_key: ${{ secrets.aws_secret_key }}
+      run: terraform init -backend-config="access_key=TF_VAR_aws_access_key" -backend-config="secret_key=TF_VAR_aws_secret_key"
     - name: Validating terraform
       run: terraform validate
     - name: Checking the format
