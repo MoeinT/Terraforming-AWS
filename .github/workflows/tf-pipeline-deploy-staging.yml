@@ -2,8 +2,8 @@ name: 'Terraform'
 
 on:
   push:
-    branches:
-      - 'feat/tf_dev'
+    pull_request:
+      - 'main'
     paths:
       - '**.tf'
 
@@ -11,7 +11,7 @@ env:
   TF_LOG: INFO
 
 jobs:
-  Terraform-Dev:
+  Terraform-Staging:
     name: 'checking staging'
     runs-on: ubuntu-latest
     environment: staging
@@ -26,21 +26,15 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
       with:
-        terraform_version: 1.1.9
+        terraform_version: 1.2.5
 
-    - name: Initializing the Dev backend
+    - name: Initializing the staging backend
       id: init
       run: terraform init -backend-config="access_key=${{ secrets.aws_access_key }}" -backend-config="secret_key=${{ secrets.aws_secret_key }}"
-   
-    - name: Validating terraform
-      run: terraform validate
-      
-    - name: Checking the format
-      run: terraform fmt -check -recursive
-
-    - name: Planning on Staging
+  
+    - name: Deploy to Staging
       id: plan
       env:
         TF_VAR_access_key: ${{ secrets.aws_access_key }}
         TF_VAR_secret_key: ${{ secrets.aws_secret_key }}
-      run: terraform plan -var-file vars/staging.tfvars
+      run: terraform apply -auto-approve -var-file vars/staging.tfvars
