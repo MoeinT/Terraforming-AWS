@@ -6,3 +6,13 @@ variable "env" {
     error_message = "Environment should be either staging or prod."
   }
 }
+
+variable "access_key" {
+  type      = string
+  sensitive = true
+}
+
+variable "secret_key" {
+  type      = string
+  sensitive = true
+}
