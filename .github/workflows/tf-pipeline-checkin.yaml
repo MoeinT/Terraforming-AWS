@@ -1,0 +1,49 @@
+name: 'Terraform'
+
+on:
+  push:
+    branches:
+      - 'feat/tf_dev'
+    paths:
+      - '**.tf'
+
+env:
+  TF_LOG: INFO
+
+jobs:
+  Terraform-Dev:
+    name: 'checking staging'
+    runs-on: ubuntu-latest
+    environment: staging
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./tf
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2 
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.1.9
+    - name: Initializing the Dev backend
+      id: init
+      env:
+        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      run: terraform init -backend-config backend/dev.tfvars
+    - name: Validating terraform
+      run: terraform validate
+    - name: Checking the format
+      run: terraform fmt -check -recursive
+
+    - name: Plan on Dev
+      id: plan
+      env:
+        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      run: terraform plan -var-file vars/dev.tfvars
