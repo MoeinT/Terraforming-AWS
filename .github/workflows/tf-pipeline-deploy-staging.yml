@@ -12,7 +12,7 @@ env:
 
 jobs:
   Terraform-Staging:
-    name: 'checking staging'
+    name: 'Deploying to staging'
     runs-on: ubuntu-latest
     environment: staging
     defaults:
