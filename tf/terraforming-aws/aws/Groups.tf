@@ -27,3 +27,11 @@ module "Users" {
   usernames = ["MoeinTerraform"]
   auth      = local.auth
 }
+
+module "Groups" {
+  source = "../../CommonModules/Group"
+  groups = ["admins"]
+  auth   = local.auth
+}
+
+/* module.Users.usernames["MoeinTerraform"] */
