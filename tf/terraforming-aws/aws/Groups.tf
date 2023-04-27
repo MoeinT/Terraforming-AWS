@@ -27,7 +27,7 @@ module "Assignments" {
 module "GroupPermissions" {
   source = "../../CommonModules/Permission"
   groupPermissions = {
-    (module.Groups.groupname["admins"]): "arn:aws:iam::aws:policy/AdministratorAccess"
+    (module.Groups.groupname["admins"]) : "arn:aws:iam::aws:policy/AdministratorAccess"
   }
   auth = local.auth
 }
