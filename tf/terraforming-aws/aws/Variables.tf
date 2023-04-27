@@ -3,9 +3,8 @@ variable "env" {
 }
 
 variable "aws_region" {
-  type      = string
-  sensitive = false
-  default   = "eu-west-3"
+  type    = string
+  default = "eu-west-3"
 }
 
 variable "access_key" {
