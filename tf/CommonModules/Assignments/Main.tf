@@ -14,12 +14,9 @@ provider "aws" {
   secret_key = var.auth.secret_key
 }
 
-/*Creating a user*/
-resource "aws_iam_user" "allUsers" {
-  for_each = toset(var.usernames)
-  name     = each.key
-
-  lifecycle {
-    ignore_changes = [tags, tags_all]
-  }
+/* Assigning Users to Groups */
+resource "aws_iam_user_group_membership" "AllAssignments" {
+  for_each = var.userGroups
+  user     = each.key
+  groups   = each.value
 }
