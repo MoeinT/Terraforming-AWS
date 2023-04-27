@@ -4,6 +4,11 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 4.0"
     }
+
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "3.0.2"
+    }
   }
   backend "s3" {
     bucket         = "tfstate-backend-terraform"
@@ -17,4 +22,7 @@ terraform {
 # Configure the AWS Provider
 provider "aws" {
   region = var.aws_region
+}
+
+provider "docker" {
 }
