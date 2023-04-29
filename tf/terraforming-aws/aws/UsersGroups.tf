@@ -1,4 +1,4 @@
-/* Creating Users */
+/* Creating users */
 module "Users" {
   source    = "../../CommonModules/User"
   usernames = ["MoeinTerraform"]
@@ -8,27 +8,26 @@ module "Users" {
 /* Creating groups */
 module "Groups" {
   source = "../../CommonModules/Group"
-  groups = ["admins"]
   auth   = local.auth
+  groups = ["admins"]
 }
 
-/* Assiging users to groups */
+/* Assigning users to groups */
 module "Assignments" {
   source = "../../CommonModules/Assignments"
+  auth   = local.auth
   userGroups = {
     (module.Users.usernames["MoeinTerraform"]) : [
       module.Groups.groupname["admins"]
     ]
   }
-  auth = local.auth
 }
 
-/* Permissions to Groups */
+/* Adding permissions to the above groups */
 module "GroupPermissions" {
   source = "../../CommonModules/Permission"
+  auth   = local.auth
   groupPermissions = {
     (module.Groups.groupname["admins"]) : "arn:aws:iam::aws:policy/AdministratorAccess"
   }
-  auth = local.auth
 }
-
