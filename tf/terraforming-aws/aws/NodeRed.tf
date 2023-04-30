@@ -4,11 +4,11 @@ resource "docker_image" "NodeRedImage" {
 }
 
 # Create a Docker Container
-/* resource "docker_container" "NodeRedContainer" {
-  name  = "noderedcontainer"
+resource "docker_container" "NodeRedContainer" {
+  name  = join("-", ["noderedcontainer", var.env])
   image = docker_image.NodeRedImage.image_id
   ports {
     internal = 1880
     external = 1880
   }
-} */
+}

@@ -1,4 +1,3 @@
-
-/* output "ips" {
-  value = module.aws.ip-addresses
-} */
+output "con-info" {
+  value = module.aws.con-info
+}
