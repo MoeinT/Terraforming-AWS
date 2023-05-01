@@ -1,3 +1,3 @@
-output "con-info" {
-  value = module.aws.con-info
+output "test" {
+  value = module.aws.test
 }
