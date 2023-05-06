@@ -54,3 +54,42 @@ module "Subnets" {
     }
   }
 }
+
+
+module "InternetGateway" {
+  source = "../../CommonModules/InternetGateway"
+  auth   = local.auth
+  internetGateways = {
+    "gateway-01" = {
+      "vpc_id" : module.VPCs.vpc-ids["vpc-01"]
+    }
+  }
+}
+
+/* Routing tables with a default gatewayid */
+module "RoutingTables" {
+  source             = "../../CommonModules/RoutingTables"
+  auth               = local.auth
+  default_gateway_id = module.InternetGateway.internetGateway-ids["gateway-01"]
+  routingTables = {
+    "routingTable-01" = {
+      "vpc_id" : module.VPCs.vpc-ids["vpc-01"]
+    }
+  }
+}
+
+module "RTAssociations" {
+  source = "../../CommonModules/RouteTableAssociation"
+  auth   = local.auth
+  RouteTableAssociations = {
+    subnet-rt-01 = {
+      "subnet_id"      = module.Subnets.subnet-ids["subnet-public-01"],
+      "route_table_id" = module.RoutingTables.routingTable-ids["routingTable-01"]
+    },
+
+    subnet-rt-02 = {
+      "subnet_id"      = module.Subnets.subnet-ids["subnet-public-02"],
+      "route_table_id" = module.RoutingTables.routingTable-ids["routingTable-01"]
+    }
+  }
+}
