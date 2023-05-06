@@ -1,3 +1,7 @@
-output "test" {
-  value = module.VPCs.vpc-ids[0].vpc-01.id
+output "vpc-id" {
+  value = module.VPCs.vpc-ids["vpc-01"]
+}
+
+output "subnet-ids" {
+  value = module.Subnets.subnet-ids
 }
