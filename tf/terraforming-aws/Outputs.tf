@@ -1,3 +1,7 @@
-output "test" {
-  value = module.aws.test
+output "vpc-id" {
+  value = module.aws.vpc-id
+}
+
+output "subnet-ids" {
+  value = module.aws.subnet-ids
 }
