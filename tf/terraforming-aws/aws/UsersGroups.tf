@@ -1,18 +1,18 @@
-/* Creating users */
+# Creating users
 module "Users" {
   source    = "../../CommonModules/User"
   usernames = ["MoeinTerraform"]
   auth      = local.auth
 }
 
-/* Creating groups */
+# Creating groups
 module "Groups" {
   source = "../../CommonModules/Group"
   auth   = local.auth
   groups = ["admins"]
 }
 
-/* Assigning users to groups */
+# Assigning users to groups
 module "Assignments" {
   source = "../../CommonModules/Assignments"
   auth   = local.auth
@@ -23,7 +23,7 @@ module "Assignments" {
   }
 }
 
-/* Adding permissions to the above groups */
+# Adding permissions to the above groups
 module "GroupPermissions" {
   source = "../../CommonModules/Permission"
   auth   = local.auth
