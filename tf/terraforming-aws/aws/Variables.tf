@@ -12,6 +12,16 @@ variable "cidr_block" {
   default = "10.123.0.0/16"
 }
 
+variable "ingress_access_ip" {
+  type    = string
+  default = "0.0.0.0/0"
+}
+
+variable "egress_access_ip" {
+  type    = string
+  default = "0.0.0.0/0"
+}
+
 variable "access_key" {
   type      = string
   sensitive = true
