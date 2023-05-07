@@ -93,3 +93,9 @@ module "RTAssociations" {
     }
   }
 }
+
+module "SecurityGroups" {
+  source          = "../../CommonModules/SecurityGroups"
+  auth            = local.auth
+  security_groups = local.security_groups
+}
