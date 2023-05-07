@@ -7,6 +7,11 @@ variable "aws_region" {
   default = "eu-west-3"
 }
 
+variable "cidr_block" {
+  type    = string
+  default = "10.123.0.0/16"
+}
+
 variable "access_key" {
   type      = string
   sensitive = true
