@@ -43,4 +43,6 @@ jobs:
       env:
         TF_VAR_access_key: ${{ secrets.aws_access_key }}
         TF_VAR_secret_key: ${{ secrets.aws_secret_key }}
+        TF_VAR_dbusername: ${{ secrets.dbusername }}
+        TF_VAR_dbpassword: ${{ secrets.dbpassword }}
       run: terraform plan -var-file env/staging.tfvars
