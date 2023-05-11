@@ -16,3 +16,18 @@ variable "secret_key" {
   type      = string
   sensitive = true
 }
+
+variable "dbusername" {
+  type      = string
+  sensitive = true
+}
+
+variable "dbpassword" {
+  type      = string
+  sensitive = true
+}
+
+variable "cidr_block" {
+  type      = string
+  sensitive = true
+}

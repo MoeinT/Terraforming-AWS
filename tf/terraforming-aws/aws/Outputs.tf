@@ -17,3 +17,15 @@ output "routingtable-ids" {
 output "default-rt-id" {
   value = module.VPCs.default-rt-id
 }
+
+output "DBSubnetGroup_ids" {
+  value = module.DBSubnetGroup.DBSubnetGroup_ids
+}
+
+output "DBSubnetGroup_names" {
+  value = module.DBSubnetGroup.DBSubnetGroup_names
+}
+
+output "SecurityGroup_ids" {
+  value = module.SecurityGroups.SecurityGroup_ids
+}

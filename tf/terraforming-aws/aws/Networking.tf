@@ -99,3 +99,18 @@ module "SecurityGroups" {
   auth            = local.auth
   security_groups = local.security_groups
 }
+
+# To be further deployed
+module "DBSubnetGroup" {
+  source = "../../CommonModules/DBSubnetGroup"
+  auth   = local.auth
+  DBSubnetGroups = {
+    db-subnetgroup-rds = {
+      "subnet_ids" : [
+        module.Subnets.subnet-ids["subnet-private-01"],
+        module.Subnets.subnet-ids["subnet-private-02"],
+        module.Subnets.subnet-ids["subnet-private-03"]
+      ]
+    }
+  }
+}
