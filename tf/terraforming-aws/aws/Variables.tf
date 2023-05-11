@@ -8,8 +8,8 @@ variable "aws_region" {
 }
 
 variable "cidr_block" {
-  type    = string
-  default = "10.123.0.0/16"
+  type      = string
+  sensitive = true
 }
 
 variable "ingress_access_ip" {

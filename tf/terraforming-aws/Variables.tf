@@ -26,3 +26,8 @@ variable "dbpassword" {
   type      = string
   sensitive = true
 }
+
+variable "cidr_block" {
+  type      = string
+  sensitive = true
+}
