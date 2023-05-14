@@ -22,6 +22,12 @@ A security group control the traffic that reach and leave resources that are ass
 ## Database subnet group
 An AWS database subnet group is a collection of subnets in a virtual private cloud where AWS RDS instances can be deployed. When you create a database subnet group, you need to provide the subnets that are associated with it. This ensures high availability and fault tolerance for AWS RDS instances. This means that the RDS instances are spread across different subnets and availability zones to minimize the impact of failures.
 
+## Application Load Balancer (ALB)
+An application load balancer automatically distributes the incoming traffic across multiple targets. In an ALB a listener checks for connection requests from clients; the rules that we define for a listener determines how the load balancer routes requests to its registered targets. Each listener can be associated with a target group that routes traffic to a number of registered targets, such as a EC2 instance. Additionally, it's possible to configure health checks for the load balancer, so that it only routes traffic to the healthy ones. See the documentation for more details on the [ALB components](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html). 
+
+In this architecture, we have associated the ALB to two public subnets and a piblic security group allowing access to ports 22 and 80. So, we will listen to these ports and forward the traffic into any target group.
+
+
 ## Terraform Best Practices
 - For high-level resources with many dependencies, such as a VPC, it's best practice to use the ```create_before_destroy``` life cycle meta-argument. This way, when a change gets implemented to a VPC resource argument, the new replacement object is created first, and the prior object is destroyed after the replacement is created. This ensures that other objects that depend on VPC would not be interuppted. 
 
