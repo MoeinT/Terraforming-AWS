@@ -25,7 +25,10 @@ An AWS database subnet group is a collection of subnets in a virtual private clo
 ## Application Load Balancer (ALB)
 An application load balancer automatically distributes the incoming traffic across multiple targets. In an ALB a listener checks for connection requests from clients; the rules that we define for a listener determines how the load balancer routes requests to its registered targets. Each listener can be associated with a target group that routes traffic to a number of registered targets, such as a EC2 instance. Additionally, it's possible to configure health checks for the load balancer, so that it only routes traffic to the healthy ones. See the documentation for more details on the [ALB components](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html). 
 
-In this architecture, we have associated the ALB to two public subnets and a piblic security group allowing access to ports 22 and 80. So, we will listen to these ports and forward the traffic into any target group.
+In this architecture, we have associated the ALB to two public subnets and a public security group allowing access to ports 22 and 80. So, we will listen to these ports and forward the traffic into any target group.
+
+## Target group
+In this architecture, we created a target group hosting our target instances that receive traffic from the the Application Load Balancer that we created above. 
 
 
 ## Terraform Best Practices
