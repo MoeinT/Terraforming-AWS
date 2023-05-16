@@ -1,3 +1,4 @@
+# Application load balancer
 module "allLoadBalancers" {
   source = "../../CommonModules/LoadBalancer"
   auth   = local.auth
@@ -14,3 +15,6 @@ module "allLoadBalancers" {
     }
   }
 }
+
+# Creating the target group and host our instances within it to receive traffic from the load balancer
+
