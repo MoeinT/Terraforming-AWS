@@ -28,8 +28,12 @@ An application load balancer automatically distributes the incoming traffic acro
 In this architecture, we have associated the ALB to two public subnets and a public security group allowing access to ports 22 and 80. So, we will listen to these ports and forward the traffic into any target group.
 
 ## Target group
-In this architecture, we created a target group hosting our target instances that receive traffic from the the Application Load Balancer that we created above. 
+Each target group is used to route requests to one or more registered targets. In this architecture, we created a target group hosting our target instances that receive traffic from the the Application Load Balancer that we created above.
 
+## Listener
+In order for the Load Balancer to forward the traffic into a target group with a number of target instances, we would need a listener. A listener is a process that checks for connection requests, using the protocol and port that you configure. The rules that you define for a listener determine how the load balancer routes requests to its registered targets. 
+
+In this architecture, we have associated the ALB to a security group that allows traffic from port 80 and 22. We have then provisioned a listener that forwards traffic from port 80 to our target group. This means that only the portion of the traffic from the load balancer that is associated with port 80 will be ingested by the listener and forwarded to the target group.  
 
 ## Terraform Best Practices
 - For high-level resources with many dependencies, such as a VPC, it's best practice to use the ```create_before_destroy``` life cycle meta-argument. This way, when a change gets implemented to a VPC resource argument, the new replacement object is created first, and the prior object is destroyed after the replacement is created. This ensures that other objects that depend on VPC would not be interuppted. 
