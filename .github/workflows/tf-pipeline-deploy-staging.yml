@@ -40,4 +40,5 @@ jobs:
         TF_VAR_dbusername: ${{ secrets.dbusername }}
         TF_VAR_dbpassword: ${{ secrets.dbpassword }}
         TF_VAR_cidr_block: ${{ secrets.cidr_block }}
+        TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
       run: terraform apply -auto-approve -var-file env/staging.tfvars

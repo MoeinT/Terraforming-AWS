@@ -35,6 +35,12 @@ In order for the Load Balancer to forward the traffic into a target group with a
 
 In this architecture, we have associated the ALB to a security group that allows traffic from port 80 and 22. We have then provisioned a listener that forwards traffic from port 80 to our target group. This means that only the portion of the traffic from the load balancer that is associated with port 80 will be ingested by the listener and forwarded to the target group.  
 
+## EC2 
+Next task will be to deploy a EC2 instance. This will be then associated to the target group we created above, and will be used to host the control place of the Kubernetes service. 
+
+
+## Kubernetes and its components 
+
 ## Terraform Best Practices
 - For high-level resources with many dependencies, such as a VPC, it's best practice to use the ```create_before_destroy``` life cycle meta-argument. This way, when a change gets implemented to a VPC resource argument, the new replacement object is created first, and the prior object is destroyed after the replacement is created. This ensures that other objects that depend on VPC would not be interuppted. 
 
