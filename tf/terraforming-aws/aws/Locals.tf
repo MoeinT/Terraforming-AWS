@@ -93,22 +93,6 @@ locals {
 
   }
 
-  AllTargetGroups = {
-    lb-tg-01 = {
-      "port"     = 80
-      "protocol" = "HTTP"
-      "vpc_id"   = module.VPCs.vpc-ids["vpc-01"]
-      "health_check" = {
-        health_check_01 = {
-          "healthy_threshold"   = 2,
-          "unhealthy_threshold" = 2,
-          "timeout"             = 3,
-          "interval"            = 30
-        }
-      }
-    }
-  }
-
   allLoadBalancers = {
     "alb-01" = {
       "load_balancer_type" = "application",
