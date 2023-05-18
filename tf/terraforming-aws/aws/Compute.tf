@@ -1,4 +1,3 @@
-
 data "aws_ami" "server_ami" {
 
   most_recent = true
@@ -10,6 +9,7 @@ data "aws_ami" "server_ami" {
   }
 }
 
+# EC2 instances
 module "AllInstances" {
   source = "../../CommonModules/AWSInstance"
   auth   = local.auth
@@ -21,10 +21,18 @@ module "AllInstances" {
 
   AllInstances = {
     ec2-instance-01 = {
-      "ami"                           = data.aws_ami.server_ami.id,
-      "instance_type"                 = "t3.micro",
-      "vpc_security_group_ids"        = [module.SecurityGroups.SecurityGroup_ids["sgpublic01"]],
-      "subnet_id"                     = module.Subnets.subnet-ids["subnet-public-01"]
+      "ami"                    = data.aws_ami.server_ami.id,
+      "instance_type"          = "t3.micro",
+      "vpc_security_group_ids" = [module.SecurityGroups.SecurityGroup_ids["sgpublic01"]],
+      "subnet_id"              = module.Subnets.subnet-ids["subnet-public-01"],
+      "user_data"              = "templates/rancherK3S.tpl"
+      "user_data_vars" = {
+        "nodename"    = "ec2-instance-01",
+        "dbname"      = module.AllDBInstances.db_names["rancher-dbinstnace"],
+        "dbuser"      = module.AllDBInstances.db_usernames["rancher-dbinstnace"],
+        "dbpass"      = var.rancher_dbpassword,
+        "db_endpoint" = module.AllDBInstances.db_endpoints["rancher-dbinstnace"]
+      }
       "root_block_device_volume_size" = 10
     }
   }

@@ -41,10 +41,10 @@ jobs:
     - name: Planning on Staging
       id: plan
       env:
-        TF_VAR_access_key: ${{ secrets.aws_access_key }}
-        TF_VAR_secret_key: ${{ secrets.aws_secret_key }}
-        TF_VAR_dbusername: ${{ secrets.dbusername }}
-        TF_VAR_dbpassword: ${{ secrets.dbpassword }}
-        TF_VAR_cidr_block: ${{ secrets.cidr_block }}
-        TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
+        TF_VAR_access_key:         ${{ secrets.aws_access_key }}
+        TF_VAR_secret_key:         ${{ secrets.aws_secret_key }}
+        TF_VAR_rancher_dbusername: ${{ secrets.dbusername }}
+        TF_VAR_rancher_dbpassword: ${{ secrets.dbpassword }}
+        TF_VAR_cidr_block:         ${{ secrets.cidr_block }}
+        TF_VAR_ssh_public_key:     ${{ secrets.SSH_PUBLIC_KEY }}
       run: terraform plan -var-file env/staging.tfvars
