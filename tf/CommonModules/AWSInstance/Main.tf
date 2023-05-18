@@ -29,6 +29,7 @@ resource "aws_instance" "AllInstances" {
   vpc_security_group_ids = each.value.vpc_security_group_ids
   subnet_id              = each.value.subnet_id
   key_name               = aws_key_pair.ec2_auth.id
+  user_data              = contains(keys(each.value), "user_data") ? contains(keys(each.value), "user_data_vars") ? templatefile(each.value.user_data, each.value.user_data_vars) : null : null
 
   root_block_device {
     volume_size = each.value.root_block_device_volume_size

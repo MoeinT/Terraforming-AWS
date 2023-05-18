@@ -17,12 +17,12 @@ variable "secret_key" {
   sensitive = true
 }
 
-variable "dbusername" {
+variable "rancher_dbusername" {
   type      = string
   sensitive = true
 }
 
-variable "dbpassword" {
+variable "rancher_dbpassword" {
   type      = string
   sensitive = true
 }

@@ -31,15 +31,17 @@ In this architecture, we have associated the ALB to two public subnets and a pub
 Each target group is used to route requests to one or more registered targets. In this architecture, we created a target group hosting our target instances that receive traffic from the the Application Load Balancer that we created above.
 
 ## Listener
-In order for the Load Balancer to forward the traffic into a target group with a number of target instances, we would need a listener. A listener is a process that checks for connection requests, using the protocol and port that you configure. The rules that you define for a listener determine how the load balancer routes requests to its registered targets. 
+In order for the Load Balancer to forward the traffic into a target group with a number of target instances, we would need a listener. A listener is a process that checks for connection requests, using the protocol and port that you configure. The rules that you define for a listener determine how the load balancer routes requests to its registered targets.
 
-In this architecture, we have associated the ALB to a security group that allows traffic from port 80 and 22. We have then provisioned a listener that forwards traffic from port 80 to our target group. This means that only the portion of the traffic from the load balancer that is associated with port 80 will be ingested by the listener and forwarded to the target group.  
+In this architecture, we have associated the ALB to a security group that allows traffic from port 80 and 22. We have then provisioned a listener that forwards traffic from port 80 to our target group. This means that only the portion of the traffic from the load balancer that is associated with port 80 will be ingested by the listener and forwarded to the target group.
 
-## EC2 
-Next task will be to deploy a EC2 instance. This will be then associated to the target group we created above, and will be used to host the control place of the Kubernetes service. 
+## EC2
+Next task will be to deploy a EC2 instance. This will be then associated to the target group we created above, and will be used to host the control place of the Kubernetes service. A few notes about how we've configured and deployed this resource:
+- Created an SSH key pair and associated the public key to the resource 
+- As mentioned above, the EC2 instance will host the control plane of the Kubernetes service. For this, we added a initialization script through the ```user_data``` argument within the resource block that will execute on the EC2 instance, when it is launched. This script is used to boostrap a rancher K3S on the instance. Rancehr KS3 is a lightweight, easy-to-deploy distribution of Kubernetes. 
 
 
-## Kubernetes and its components 
+## Kubernetes and its components
 
 ## Terraform Best Practices
 - For high-level resources with many dependencies, such as a VPC, it's best practice to use the ```create_before_destroy``` life cycle meta-argument. This way, when a change gets implemented to a VPC resource argument, the new replacement object is created first, and the prior object is destroyed after the replacement is created. This ensures that other objects that depend on VPC would not be interuppted. 
